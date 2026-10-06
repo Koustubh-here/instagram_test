@@ -77,7 +77,7 @@ const Screen1 = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   headingText: {
-    fontSize: 24,
+    fontSize: 2,
     fontWeight: 'bold',
     paddingHorizontal: 8
   },
