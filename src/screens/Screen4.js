@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Plus, Heart } from 'lucide-react-native';
+import { Plus, Heart, Home, Play, SquarePlay, Send, Search, Circle } from 'lucide-react-native';
 
 import Stories from '../components/Stories';
+import BottomNav from '../components/BottomNav';
 
 const Screen4 = () => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.navBar}>
 
                 <View style={styles.side}>
@@ -25,6 +26,8 @@ const Screen4 = () => {
             </View>
 
             <Stories />
+            <BottomNav />
+
 
         </SafeAreaView>
     );
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
     },
+
 
 });
 
