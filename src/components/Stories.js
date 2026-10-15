@@ -101,12 +101,15 @@ const Stories = () => {
 const styles = StyleSheet.create({
     storyScroll: {
         marginTop: 5,
+        height: 110,
+        flexGrow: 0,
     },
 
     storyContainer: {
         flexDirection: 'row',
         paddingHorizontal: 15,
         gap: 14,
+        height: 110,
     },
 
     story: {
