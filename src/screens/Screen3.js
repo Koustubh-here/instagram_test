@@ -48,7 +48,7 @@ const Screen3 = ({ navigation }) => {
             ))}
             <Pressable
                 style={styles.nextButton}
-                onPress={() => navigation.navigate('Screen4')}
+                onPress={() => navigation.navigate('Screen5')}
             >
                 <Text style={styles.nextButtonText}>Next</Text>
             </Pressable>

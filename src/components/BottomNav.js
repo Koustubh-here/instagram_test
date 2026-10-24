@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Home, SquarePlay, Send, Search, Circle } from 'lucide-react-native';
 
 const BottomNav = () => {
+
     return (
         <View style={styles.bottomnavbar}>
             <View>
@@ -24,7 +25,9 @@ const BottomNav = () => {
             <View>
                 <Circle size={25} color="black" />
             </View>
+
         </View>
+
     )
 }
 const styles = StyleSheet.create({

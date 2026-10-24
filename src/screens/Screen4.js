@@ -1,12 +1,57 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Plus, Heart, Home, Play, SquarePlay, Send, Search, Circle, EllipsisVertical, MessageCircle, Repeat, Bookmark } from 'lucide-react-native';
+import { Plus, Heart, Send, Circle, EllipsisVertical, MessageCircle, Repeat, Bookmark } from 'lucide-react-native';
 
 import Stories from '../components/Stories';
 import BottomNav from '../components/BottomNav';
+import ActionButton from '../components/ActionButton';
+
+const POST_IMAGE = require('../assets/Screenshot 2026-10-15 000229.png');
+
+// Hardcoded data. Each object is one post. Later this comes from a database.
+const POSTS = [
+    { id: '1', username: 'User616', image: POST_IMAGE, likes: 450, comments: 11, reposts: 450, shares: 450 },
+    { id: '2', username: 'User617', image: POST_IMAGE, likes: 120, comments: 8, reposts: 30, shares: 15 },
+    { id: '3', username: 'User618', image: POST_IMAGE, likes: 987, comments: 54, reposts: 210, shares: 76 },
+];
+
+// One post. Everything that differs between posts arrives through props.
+const Post = ({ username, image, likes, comments, reposts, shares }) => {
+    // Shape of THIS post's image, so any picture fits fully with no bars.
+    const { width, height } = Image.resolveAssetSource(image);
+
+    return (
+        <View>
+            <View style={styles.postHeader}>
+                <Circle size={30} color="black" />
+                <Text style={styles.postUsername}>{username}</Text>
+                <EllipsisVertical size={25} color="black" />
+            </View>
+
+            <Image
+                source={image}
+                style={[styles.postImage, { aspectRatio: width / height }]}
+                resizeMode="contain"
+            />
+
+            <View style={styles.postFooter}>
+                <View style={styles.actionsLeft}>
+                    <ActionButton icon={Heart} count={likes} label="Like" />
+                    <ActionButton icon={MessageCircle} count={comments} label="Comment" />
+                    <ActionButton icon={Repeat} count={reposts} label="Repost" />
+                    <ActionButton icon={Send} count={shares} label="Share" />
+                </View>
+                <ActionButton icon={Bookmark} label="Save" />
+            </View>
+        </View>
+    );
+};
 
 const Screen4 = () => {
+    function openWebsite(websiteLink) {
+        Linking.openURL(websiteLink)
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.navBar}>
@@ -25,37 +70,21 @@ const Screen4 = () => {
 
             </View>
 
-            <Stories />
-            <View style={styles.postComponent}>
-                <View style={styles.postHeader}>
-                    <Circle size={30} color="black" />
-                    <Text style={styles.postUsername}>User616</Text>
-                    <EllipsisVertical size={25} color="black" />
-                </View>
-                <View style={styles.imageContainer}>
-                    <Image source={require('../assets/Screenshot 2026-10-15 000229.png')}
-                        style={styles.postImage}
-                    ></Image>
-                </View>
-                <View style={styles.postfooter}>
-                    <Heart size={25} color="black"></Heart>
-                    <Text style={styles.likeCounter}>450</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Stories />
 
-                    <MessageCircle size={25} color="black"></MessageCircle>
-                    <Text style={styles.commentsCunter}>11</Text>
-
-                    <Repeat size={25} color="black"></Repeat>
-                    <Text style={styles.repostCounter}>450</Text>
-
-                    <Send size={25} color="black"></Send>
-                    <Text style={styles.shareCounter}>450</Text>
-
-                    <Bookmark size={25} color="black" style={styles.saveOption}></Bookmark>
-                </View>
-            </View>
+                {POSTS.map((post) => (
+                    <Post key={post.id} {...post} />
+                ))}
+            </ScrollView>
 
             <BottomNav />
 
+            <TouchableOpacity
+                onPress={() => openWebsite('https://www.linkedin.com/in/koustubhausula/')}
+            >
+                <Text>Read more</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
@@ -86,7 +115,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingVertical: 8,
     },
 
     postUsername: {
@@ -96,18 +125,20 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     postImage: {
-        width: 500,
-        height: 500,
-        padding: 50,
+        width: '100%',
     },
-    postfooter: {
-        flexDirection: "row",
-        gap: 8,
+    postFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 8,
     },
-    saveOption: {
-        paddingLeft: 220,
-    }
-
+    actionsLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 16,
+    },
 });
 
-export default Screen4; 
+export default Screen4;
