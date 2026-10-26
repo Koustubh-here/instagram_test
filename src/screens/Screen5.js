@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import ContactList from '../components/ContactList'
+
 function Screen5() {
     function openWebsitee(website) {
         Linking.openURL(website);
@@ -17,8 +19,6 @@ function Screen5() {
                     source={{ uri: 'https://cdn.prod.website-files.com/5ece31a7ed10852cac87fba4/5fae6d03d52cd18690585fd7_Essential-Tips-For-LinkedIn.jpg' }}
                     style={styles.cardImage}
                 />
-
-                {/* Clickable Button inside the card to open your link */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => openWebsitee('https://www.linkedin.com/in/koustubhausula/')}
@@ -26,6 +26,7 @@ function Screen5() {
                     <Text style={styles.buttonText}>Open LinkedIn</Text>
                 </TouchableOpacity>
             </View>
+            <ContactList />
         </SafeAreaView>
     );
 }
